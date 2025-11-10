@@ -8,6 +8,8 @@ public class CatImpl implements Cat {
 
 	public CatImpl(int id, String name) {
 		this.id = id;
+		this.name = name;
+		this.rented = false;
 	}
 
 	public void rentCat() {
@@ -35,7 +37,7 @@ public class CatImpl implements Cat {
 	}
 
 	public String toString() {
-		return "ID" + id + ". " + name;
+		return "ID " + id + ". " + name;
 	}
 
 }

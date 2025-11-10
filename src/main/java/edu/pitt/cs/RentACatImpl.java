@@ -17,13 +17,18 @@ public class RentACatImpl implements RentACat {
 	 * @return true if cat exists and was rented out, false otherwise
 	 */
 
+	@Override
 	public boolean returnCat(int id) {
 		Cat c = getCat(id);
-		if (c != null && c.getRented()) {
-			c.returnCat();
-			return true;
+		if (c == null)
+			return false;
+		if (!c.getRented()) {
+			System.out.println(c.getName() + " is already here!");
+			return false;
 		}
-		return false;
+		c.returnCat();
+		System.out.println("Welcome back, " + c.getName() + "!");
+		return true;
 	}
 
 	/**
@@ -36,13 +41,18 @@ public class RentACatImpl implements RentACat {
 	 * @return true if cat exists and was not rented out, false otherwise
 	 */
 
+	@Override
 	public boolean rentCat(int id) {
 		Cat c = getCat(id);
-		if (c != null && !c.getRented()) {
-			c.rentCat();
-			return true;
+		if (c == null)
+			return false;
+		if (c.getRented()) {
+			System.out.println("Sorry, " + c.getName() + " is not here!");
+			return false;
 		}
-		return false;
+		c.rentCat();
+		System.out.println(c.getName() + " has been rented.");
+		return true;
 	}
 
 	/**
@@ -73,14 +83,14 @@ public class RentACatImpl implements RentACat {
 	 * @return "\n"-delimited list of rentable cats
 	 */
 
+	@Override
 	public String listCats() {
-		if (cats.isEmpty()) {
+		if (cats.isEmpty())
 			return "";
-		}
 		StringBuilder sb = new StringBuilder();
 		for (Cat c : cats) {
 			if (!c.getRented()) {
-				sb.append(c.toString()).append("\n");
+				sb.append(c.toString()).append(System.lineSeparator());
 			}
 		}
 		return sb.toString();
